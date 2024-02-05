@@ -3,15 +3,26 @@ import {
   CompositeDecorator,
   Editor,
   EditorState,
+  Modifier,
   RichUtils,
   convertToRaw,
 } from "draft-js";
 import "draft-js/dist/Draft.css";
-import { FaItalic, FaUnderline, FaBold, FaStrikethrough } from "react-icons/fa";
+import {
+  FaItalic,
+  FaUnderline,
+  FaBold,
+  FaStrikethrough,
+  FaSubscript,
+  FaSuperscript,
+} from "react-icons/fa";
 import TextStyleButton from "./TextStyleButton";
 import HeadingEditor from "./HeadingEditor";
 import LinkEditor from "./LinkEditor";
 import { styles } from "@/utils/constants";
+import ScriptButton from "./ScriptButton";
+
+
 const findLinkEntities = (
   contentBlock: any,
   callback: any,
@@ -66,10 +77,23 @@ const MyDraftEditor: FC = () => {
     const blockType = block.getType();
     setActiveHeading(blockType);
   };
-
+  /**SuperSciprt and Subsciprt text Funxtion handler */
+  const customStyleMap = {
+    SUPERSCRIPT: {
+      verticalAlign: "super",
+      fontSize: "smaller",
+    },
+    SUBSCRIPT: {
+      verticalAlign: "sub",
+      fontSize: "smaller",
+    },
+  };
+  
+ 
   return (
-    <div className="min-w-[40%] p-8">
-      <div className="flex gap-3">
+    <div className="min-w-[40%]">
+      <div className="flex gap-3 py-2">
+     
         <HeadingEditor
           onChange={onChange}
           editorState={editorState}
@@ -104,8 +128,19 @@ const MyDraftEditor: FC = () => {
           onChange={onChange}
           setEditorState={setEditorState}
         />
+        <ScriptButton
+          editorState={editorState}
+          onChange={onChange}
+          icon={<FaSuperscript />}
+          style="SUPERSCRIPT"
+        />
+        <ScriptButton
+          editorState={editorState}
+          onChange={onChange}
+          icon={<FaSubscript />}
+          style="SUBSCRIPT"
+        />
       </div>
-
       <div
         tabIndex={0}
         role="textbox"
@@ -115,6 +150,7 @@ const MyDraftEditor: FC = () => {
           editorState={editorState}
           handleKeyCommand={handleKeyCommand}
           onChange={onChange}
+          customStyleMap={customStyleMap}
           placeholder="Enter some text..."
         />
       </div>

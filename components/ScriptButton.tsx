@@ -1,29 +1,27 @@
 import { EditorState, RichUtils } from "draft-js";
 import { FC } from "react";
-interface TextStyleButtonProps {
+interface SuperScriptStyleButtonProps {
   editorState: EditorState;
   onChange: (newEditorState: EditorState) => void;
   style: string;
   icon: React.ReactNode;
 }
-
-const TextStyleButton: FC<TextStyleButtonProps> = ({
+const ScriptButton: FC<SuperScriptStyleButtonProps> = ({
   editorState,
   onChange,
-  style,
   icon,
+  style,
 }) => {
-  const onToggle = () => {
+  const onToggleSuperscript = () => {
     onChange(RichUtils.toggleInlineStyle(editorState, style));
   };
-
   const isActive = () => {
     const currentStyle = editorState?.getCurrentInlineStyle();
     return currentStyle?.has(style);
   };
   return (
     <button
-      onClick={onToggle}
+      onClick={onToggleSuperscript}
       className={`toolbar-button border border-solid rounded-md p-2 ${
         isActive() ? "active" : ""
       }`}
@@ -33,4 +31,4 @@ const TextStyleButton: FC<TextStyleButtonProps> = ({
   );
 };
 
-export default TextStyleButton;
+export default ScriptButton;

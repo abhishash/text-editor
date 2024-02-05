@@ -14,7 +14,7 @@ const MyDraftEditor = dynamic(() => import("@/components/MyEditor"), {
 
 function Editor() {
   return (
-    <div className="w-[80%] mx-auto">
+    <div className="w-[60%] mx-auto flex flex-col gap-8">
       <h1>Next.js Editor Using Draft.js</h1>
       <MyDraftEditor />
     </div>
